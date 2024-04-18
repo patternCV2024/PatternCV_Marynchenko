@@ -88,39 +88,38 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
 # Ваш варіант даних
-x_train_2 = np.array([[34, 11], [34, 38], [40, 8], [42, 18], [33, 41], [39, 47], [11, 40], [21, 44], [19, 28], [49, 20]])
-y_train_2 = np.array([-1, -1, -1, 1, 1, 1, -1, 1, -1, 1])
-
+x_train= np.array([[30, 21], [12, 24], [23, 29], [23, 38], [32, 37], [22, 34], [21, 47], [5, 43], [5, 47], [21, 24]])
+y_train = np.array([-1,  1,  1, -1,  1,  1,  1,  1, -1, -1])
 # Тестовий набір даних
-x_test_2 = np.array([[35, 10], [36, 39], [41, 9], [43, 19], [32, 42], [38, 48], [12, 39], [22, 45], [20, 29], [48, 21]])
-y_test_2 = np.array([-1, -1, -1, 1, 1, 1, -1, 1, -1, 1])
+x_test = np.array([[35, 10], [36, 39], [41, 9], [43, 19], [32, 42], [38, 48], [12, 39], [22, 45], [20, 29], [48, 21]])
+y_test = np.array([-1, -1, -1, 1, 1, 1, -1, 1, -1, 1])
 
 # Визначення класифікатора та навчання моделі
 k = 3  # Кількість найближчих сусідів
 knn = KNeighborsClassifier(n_neighbors=k)
-knn.fit(x_train_2, y_train_2)
+knn.fit(x_train, y_train)
 
 # Прогнозування класів для тестових даних
-y_pred_2 = knn.predict(x_test_2)
+y_pred = knn.predict(x_test)
 
 # Оцінка точності класифікації
-accuracy_2 = accuracy_score(y_test_2, y_pred_2)
-print(f"Точність класифікації методом k найближчих сусідів: {accuracy_2:.2f}")
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Точність класифікації методом k найближчих сусідів: {accuracy:.2f}")
 
 # Вивід таблиці частот точності класифікації
 print("Таблиця частот точності класифікації:")
 print("--------------------------------------------------")
 print("| Клас | Правильно класифіковано | Неправильно класифіковано |")
 print("--------------------------------------------------")
-for target in np.unique(y_test_2):
-    correct = np.sum((y_test_2 == target) & (y_pred_2 == target))
-    incorrect = np.sum((y_test_2 == target) & (y_pred_2 != target))
+for target in np.unique(y_test):
+    correct = np.sum((y_test == target) & (y_pred == target))
+    incorrect = np.sum((y_test == target) & (y_pred != target))
     print(f"|  {target}  | {correct:^25} | {incorrect:^28} |")
 print("--------------------------------------------------")
 
 # Візуалізація
 plt.figure(figsize=(10, 6))
-plt.scatter(x_test_2[:, 0], x_test_2[:, 1], c=y_pred_2, cmap='viridis', s=50)
+plt.scatter(x_test[:, 0], x_test[:, 1], c=y_pred, cmap='viridis', s=50)
 plt.title('Класифікація методом k найближчих сусідів')
 plt.xlabel('Признак 1')
 plt.ylabel('Признак 2')
